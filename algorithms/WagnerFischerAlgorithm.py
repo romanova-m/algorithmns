@@ -5,13 +5,17 @@ import numpy as np
 
 
 def load_values():
-    return ['кто']
+    return input("Введите слова дял сравнения через запятую").split(", ")
+
+
+def load_searched_value():
+    return input('Введите слово')
 
 
 def count_distances(value, strings):
     result = []
     for string in strings:
-        result.append(count_distance(value, string))
+        result.append(count_distance(value.lower(), string.lower()))
     return result
 
 
@@ -39,5 +43,7 @@ def count_distance(a, b):
 
 
 if __name__ == '__main__':
-    inp = 'кот'
-    print(count_distances(inp, load_values()))
+    inp = load_searched_value()
+    while inp:
+        print(count_distances(inp, load_values()))
+        inp = load_searched_value()
