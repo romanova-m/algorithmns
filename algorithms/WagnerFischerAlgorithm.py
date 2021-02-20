@@ -36,9 +36,16 @@ def count_distance(a, b):
             else:
                 substitution_cost = 1
 
-            d[i, j] = min(d[i - 1, j] + 1,  # deletion
-                          d[i, j - 1] + 1,  # insertion
-                          d[i - 1, j - 1] + substitution_cost)  # substitution
+            # Damerau
+            if i > 1 and j > 1 and a[i] == b[j - 1] and a[i - 1] == b[j]:
+                d[i, j] = min(d[i - 1, j] + 1,  # deletion
+                              d[i, j - 1] + 1,  # insertion
+                              d[i - 1, j - 1] + substitution_cost,  # substitution
+                              d[i - 2, j - 2] + 1)  # transposition
+            else:
+                d[i, j] = min(d[i - 1, j] + 1,  # deletion
+                              d[i, j - 1] + 1,  # insertion
+                              d[i - 1, j - 1] + substitution_cost)  # substitution
     return d[m - 1, n - 1]
 
 
